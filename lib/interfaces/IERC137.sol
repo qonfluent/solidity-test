@@ -35,6 +35,11 @@ interface IERC137 is IERC165 {
 		bytes32 node
 	) external view returns (address);
 
+	function setOwner (
+		bytes32 node,
+		address newOwner
+	) external;
+
 	function resolver (
 		bytes32 node
 	) external view returns (address);
@@ -43,24 +48,19 @@ interface IERC137 is IERC165 {
 		bytes32 node
 	) external view returns (uint64);
 
-	function setOwner (
-		bytes32 node,
-		address owner
-	) external;
-
 	function setSubnodeOwner (
 		bytes32 node,
 		bytes32 label,
-		address owner
+		address newOwner
 	) external returns(bytes32);
 
 	function setResolver (
 		bytes32 node,
-		address resolver
+		address newResolver
 	) external;
 
 	function setTTL (
 		bytes32 node,
-		uint64 ttl
+		uint64 newTTL
 	) external;
 }

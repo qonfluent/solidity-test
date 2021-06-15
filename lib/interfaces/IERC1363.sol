@@ -3,7 +3,10 @@
 
 pragma solidity ^0.8.0;
 
-interface IERC1363 is ERC20, ERC165 {
+import "./IERC20.sol";
+import "./IERC165.sol";
+
+interface IERC1363 is IERC20, IERC165 {
 	// @notice Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
 	// @param to address The address which you want to transfer to
 	// @param value uint256 The amount of tokens to be transferred

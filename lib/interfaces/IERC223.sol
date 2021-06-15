@@ -17,8 +17,8 @@ interface IERC223 is IERC20 {
 	function transfer (
 		address to,
 		uint value,
-		bytes _data
-	) returns (bool);
+		bytes calldata data
+	) external returns (bool);
 }
 
 // Source: https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol
@@ -32,6 +32,6 @@ interface IERC223Receiver {
 	function tokenFallback (
 		address from,
 		uint value,
-		bytes memory data
-	) public;
+		bytes calldata data
+	) external;
 }
