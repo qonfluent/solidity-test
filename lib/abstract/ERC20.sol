@@ -52,6 +52,7 @@ abstract contract ERC20 is Context, IERC20 {
 		uint256 amount
 	) public override virtual returns (bool) {
 		_approve(_msgSender(), spender, amount);
+		emit Approval(_msgSender(), spender, amount);
 		return true;
 	}
 
@@ -60,6 +61,7 @@ abstract contract ERC20 is Context, IERC20 {
 		uint256 amount
 	) public override virtual returns (bool) {
 		_transfer(_msgSender(), recipient, amount);
+		emit Transfer(_msgSender(), recipient, amount);
 		return true;
 	}
 
@@ -91,7 +93,6 @@ abstract contract ERC20 is Context, IERC20 {
 
 		// Set allowance for (owner to spender) to amount
 		_allowances[owner][spender] = amount;
-		emit Approval(owner, spender, amount);
 	}
 
 	function _transfer(
@@ -108,8 +109,6 @@ abstract contract ERC20 is Context, IERC20 {
 			_balances[sender] = senderBalance - amount;
 		}
 		_balances[recipient] += amount;
-
-		emit Transfer(sender, recipient, amount);
 	}
 
 }
