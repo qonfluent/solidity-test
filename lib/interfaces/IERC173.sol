@@ -5,11 +5,19 @@ pragma solidity ^0.8.0;
 import "../util/Context.sol";
 
 interface IERC173 {
+	// -- EVENTS --
+
 	/// @dev This emits when ownership of a contract changes.
 	event OwnershipTransferred (
 		address indexed previousOwner,
 		address indexed newOwner
 	);
+
+	// -- MODIFIERS --
+
+	modifier onlyOwner() virtual;
+
+	// -- EXTERNAL FUNCTIONS --
 
 	/// @notice Get the address of the owner
 	/// @return The address of the owner.
