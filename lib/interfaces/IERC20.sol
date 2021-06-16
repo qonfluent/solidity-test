@@ -90,6 +90,7 @@ interface IERC20 {
 
 interface INamedERC20 is IERC20 {
 	// -- VIEW FUNCTIONS --
+
 	function name () external view returns (string memory);
 	function symbol () external view returns (string memory);
 	function decimals () external view returns (uint8);
@@ -98,6 +99,7 @@ interface INamedERC20 is IERC20 {
 // Note: See https://github.com/ethereum/EIPs/issues/20
 interface IERC20_2 is IERC20 {
 	// -- EVENTS -- 
+
 	event Transfer (
 		address indexed spender,
 		address indexed from,
@@ -113,6 +115,7 @@ interface IERC20_2 is IERC20 {
 	);
 
 	// -- EXTERNAL FUNCTIONS --
+
 	function approve (
 		address spender,
 		uint256 currentAmount,
@@ -121,6 +124,8 @@ interface IERC20_2 is IERC20 {
 }
 
 interface IERC20_3 is IERC20 {
+	// -- EXTERNAL FUNCTIONS --
+
 	function increaseAllowance (
 		address spender,
 		uint256 addedValue

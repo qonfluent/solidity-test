@@ -6,7 +6,7 @@ import "../interfaces/IERC20.sol";
 import "../util/Context.sol";
 import "../util/SafeMath.sol";
 
-abstract contract FixedERC20 is Context, IERC20 {
+abstract contract ERC20 is Context, IERC20 {
 	using SafeMath for uint256;
 
 	// -- STATE --
@@ -108,7 +108,7 @@ abstract contract FixedERC20 is Context, IERC20 {
 
 }
 
-abstract contract FixedERC20_2 is FixedERC20, IERC20_2 {
+abstract contract ERC20_2 is ERC20, IERC20_2 {
 	using SafeMath for uint256;
 
 	// -- CONSTRUCTOR --
@@ -116,7 +116,7 @@ abstract contract FixedERC20_2 is FixedERC20, IERC20_2 {
 	constructor (
 		uint256 c_totalSupply,
 		address c_owner
-	) FixedERC20 (
+	) ERC20 (
 		c_totalSupply,
 		c_owner
 	) {}
@@ -138,7 +138,7 @@ abstract contract FixedERC20_2 is FixedERC20, IERC20_2 {
 		address sender,
 		address recipient,
 		uint256 amount
-	) public override(IERC20, FixedERC20) virtual returns (bool) {
+	) public override(IERC20, ERC20) virtual returns (bool) {
 		_transfer(sender, recipient, amount);
 
 		uint256 currentAllowance = _allowances[sender][_msgSender()];
@@ -153,7 +153,7 @@ abstract contract FixedERC20_2 is FixedERC20, IERC20_2 {
 	}
 }
 
-abstract contract FixedERC20_3 is FixedERC20, IERC20_3 {
+abstract contract ERC20_3 is ERC20, IERC20_3 {
 	using SafeMath for uint256;	
 
 	// -- CONSTRUCTOR --
@@ -161,7 +161,7 @@ abstract contract FixedERC20_3 is FixedERC20, IERC20_3 {
 	constructor (
 		uint256 c_totalSupply,
 		address c_owner
-	) FixedERC20 (
+	) ERC20 (
 		c_totalSupply,
 		c_owner
 	) {}
@@ -220,64 +220,4 @@ abstract contract NamedERC20 is INamedERC20 {
 	function decimals () public override view returns (uint8) {
 		return _decimals;
 	}
-}
-
-abstract contract NamedFixedERC20 is NamedERC20, FixedERC20 {
-	// -- CONSTRUCTOR --
-
-	constructor (
-		string memory c_name,
-		string memory c_symbol,
-		uint8 c_decimals,
-
-		uint256 c_totalSupply,
-		address c_owner
-	) NamedERC20 (
-		c_name,
-		c_symbol,
-		c_decimals
-	) FixedERC20 (
-		c_totalSupply,
-		c_owner
-	) {}
-}
-
-abstract contract NamedFixedERC20_2 is NamedERC20, FixedERC20_2 {
-	// -- CONSTRUCTOR --
-
-	constructor (
-		string memory c_name,
-		string memory c_symbol,
-		uint8 c_decimals,
-
-		uint256 c_totalSupply,
-		address c_owner
-	) NamedERC20 (
-		c_name,
-		c_symbol,
-		c_decimals
-	) FixedERC20_2 (
-		c_totalSupply,
-		c_owner
-	) {}
-}
-
-abstract contract NamedFixedERC20_3 is NamedERC20, FixedERC20_3 {
-	// -- CONSTRUCTOR --
-
-	constructor (
-		string memory c_name,
-		string memory c_symbol,
-		uint8 c_decimals,
-
-		uint256 c_totalSupply,
-		address c_owner
-	) NamedERC20 (
-		c_name,
-		c_symbol,
-		c_decimals
-	) FixedERC20_3 (
-		c_totalSupply,
-		c_owner
-	) {}
 }
