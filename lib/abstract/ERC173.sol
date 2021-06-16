@@ -13,9 +13,8 @@ abstract contract ERC173 is Context, IERC173 {
 	// -- CONSTRUCTOR --
 
 	constructor() {
-		address msgSender = _msgSender();
-		_owner = msgSender;
-		emit OwnershipTransferred(address(0), msgSender);
+		_owner = _msgSender();
+		emit OwnershipTransferred(address(0), _owner);
 	}
 
 	// -- PUBLIC FUNCTIONS --
