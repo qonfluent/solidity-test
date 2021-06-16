@@ -10,6 +10,7 @@ abstract contract ERC20 is Context, IERC20 {
 	using SafeMath for uint256;
 
 	// -- STATE --
+
 	mapping (address => uint256) internal _balances;
 
 	mapping (address => mapping (address => uint256)) internal _allowances;
@@ -31,11 +32,16 @@ abstract contract ERC20 is Context, IERC20 {
 		return _totalSupply;
 	}
 
-	function balanceOf(address account) public view override returns (uint256) {
+	function balanceOf (
+		address account
+	) public view override returns (uint256) {
 		return _balances[account];
 	}
 
-	function allowance(address owner, address spender) public view virtual override returns (uint256) {
+	function allowance (
+		address owner,
+		address spender
+	) public view virtual override returns (uint256) {
 		return _allowances[owner][spender];
 	}
 
