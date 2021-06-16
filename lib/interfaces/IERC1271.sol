@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 interface IERC1271 {
-	bytes4 constant internal MAGICVALUE = bytes4(keccak256("isValidSignature(bytes32,bytes)");
+	// bytes4 constant MAGICVALUE = bytes4(keccak256("isValidSignature(bytes32,bytes)"));
 
 	/**
 	 * @dev Should return whether the signature provided is valid for the provided data
@@ -17,5 +17,5 @@ interface IERC1271 {
 	function isValidSignature (
 		bytes32 _hash, 
 		bytes memory _signature
-	) public view returns (bytes4 magicValue);
+	) external view returns (bytes4 magicValue);
 }
