@@ -7,6 +7,12 @@ import "../interfaces/IGovernanceTokenWrappable.sol";
 import "./TokenWrappable.sol";
 
 abstract contract GovernanceTokenWrappable is IGovernanceTokenWrappable, TokenWrappable {
+	constructor (
+		address _token
+	) TokenWrappable (
+		_token
+	) {}
+
 	// -- PUBLIC FUNCTIONS --
 
 	function setDelegation (

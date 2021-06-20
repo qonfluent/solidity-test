@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 
 import "../lib/abstract/ERC20.sol";
 import "../lib/abstract/Taxable.sol";
-import "../lib/abstract/TokenWrappable.sol";
+import "../lib/abstract/GovernanceTokenWrappable.sol";
 
-contract Crab is NamedERC20, ERC20_3, Taxable, TokenWrappable {
+contract Crab is NamedERC20, ERC20_3, Taxable, GovernanceTokenWrappable {
 	constructor (
 	) ERC20_3 (
 		0,
@@ -19,7 +19,7 @@ contract Crab is NamedERC20, ERC20_3, Taxable, TokenWrappable {
 		25,
 		10000,
 		address(0)
-	) TokenWrappable (
+	) GovernanceTokenWrappable (
 		0xc00e94Cb662C3520282E6f5717214004A7f26888
 	) {
 	}
