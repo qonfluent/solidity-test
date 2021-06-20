@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 
 import "../interfaces/IMintable.sol";
 import "../abstract/ERC20.sol";
+import "../abstract/ERC173.sol";
 
-abstract contract MintableERC20 is IMintableERC20, ERC20 {
+abstract contract MintableERC20 is IMintableERC20, ERC20, ERC173 {
 	constructor () {}
 
 	function mint (
