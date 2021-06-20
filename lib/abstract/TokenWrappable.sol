@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.0;
 
-import "../interfaces/ITokenWrapable.sol";
+import "../interfaces/ITokenWrappable.sol";
 import "./Mintable.sol";
 import "./Burnable.sol";
 
-abstract contract TokenWrappable is ITokenWrapable, MintableERC20, BurnableERC20 {
+abstract contract TokenWrappable is ITokenWrappable, MintableERC20, BurnableERC20 {
 	// -- STATE --
 
-	address private _wrappedToken;
+	address internal _wrappedToken;
 
 	// -- CONSTRUCTOR -- 
 	constructor (
