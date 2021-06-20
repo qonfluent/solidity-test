@@ -6,7 +6,7 @@ import "../interfaces/ITokenWrapable.sol";
 import "./Mintable.sol";
 import "./Burnable.sol";
 
-abstract contract TokenWrapable is ITokenWrapable, MintableERC20, BurnableERC20 {
+abstract contract TokenWrappable is ITokenWrapable, MintableERC20, BurnableERC20 {
 	// -- STATE --
 
 	address private _wrappedToken;
