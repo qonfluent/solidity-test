@@ -21,8 +21,6 @@ interface ITokenWrapable is IERC20 {
 
 	function getWrappedToken () external view returns (address);
 
-	function getTresasury () external view returns (address);
-
 	// -- EXTERNAL FUNCTIONS --
 
 	function wrap (
