@@ -17,7 +17,7 @@ abstract contract GovernanceTokenWrappable is IGovernanceTokenWrappable, TokenWr
 
 	function setDelegation (
 		address who
-	) external override {
+	) external override onlyOwner {
 		IGovernanceToken token = IGovernanceToken(_wrappedToken);
 		token.delegate(who);
 		emit ChangedDelegate(who);
