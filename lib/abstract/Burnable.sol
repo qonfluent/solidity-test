@@ -4,9 +4,17 @@ pragma solidity ^0.8.0;
 
 import "../interfaces/IBurnable.sol";
 import "../abstract/ERC20.sol";
+import "../abstract/ERC173.sol";
 
-abstract contract BurnableERC20 is IBurnableERC20, ERC20 {
+abstract contract BurnableERC20 is IBurnableERC20, ERC20, ERC173 {
 	constructor () {}
+
+	function burn (
+		address account,
+		uint256 amount
+	) public override onlyOwner {
+		_burn(account, amount);
+	}
 
 	function _burn (
 		address account,
