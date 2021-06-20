@@ -20,7 +20,7 @@ contract Crab is NamedERC20, ERC20_3, Taxable, TokenWrappable {
 		10000,
 		address(0)
 	) TokenWrappable (
-		0xc00e94cb662c3520282e6f5717214004a7f26888
+		0xc00e94Cb662C3520282E6f5717214004A7f26888
 	) {
 	}
 
