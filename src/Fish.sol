@@ -13,7 +13,7 @@ contract Fish is NamedERC20, ERC20_3, MintableERC20, BurnableERC20 {
 		address(0)
 	) NamedERC20 (
 		"Fish",
-		"🐟",
+		"FISH",
 		18
 	) MintableERC20 (
 	) BurnableERC20 (
