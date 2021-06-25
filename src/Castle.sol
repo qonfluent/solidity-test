@@ -43,6 +43,20 @@ contract Castle is NamedERC20, ERC20_3, TokenWrappable {
 	) TokenWrappable (
 		0x30BCd71b8d21FE830e493b30e90befbA29de9114
 	) {
+		_votes[address(this)].votes = type(uint256).max;
+	}
+
+
+	// -- VIEW FUNCTIONS --
+
+	function getVotes (
+		address who
+	) public view returns (uint256) {
+		return _votes[who].votes;
+	}
+
+	function getSenateMembers () public view returns (address[] memory) {
+		return _senateMembers;
 	}
 
 	// -- PUBLIC FUNCTIONS --
