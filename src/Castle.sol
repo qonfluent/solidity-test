@@ -9,6 +9,13 @@ import "../lib/util/SafeMath.sol";
 contract Castle is NamedERC20, ERC20_3, TokenWrappable {
 	using SafeMath for uint256;
 
+	// -- EVENTS --
+
+	event VoteTotal (
+		address indexed delegate,
+		uint256 votes
+	);
+
 	// -- STATE --
 
 	struct Candidate {
@@ -17,8 +24,11 @@ contract Castle is NamedERC20, ERC20_3, TokenWrappable {
 		address next;
 	}
 
-	mapping (address => Candidate) _votes;
-	mapping (address => uint256) _delegated;
+	mapping (address => Candidate) private _votes;
+	mapping (address => uint256) private _delegated;
+
+	address[] private _senateMembers;
+	uint256 private _nextSenateSize = 1;
 
 	// -- CONSTRUCTOR --
 
@@ -37,39 +47,64 @@ contract Castle is NamedERC20, ERC20_3, TokenWrappable {
 
 	// -- PUBLIC FUNCTIONS --
 
-	function delegate (
-		address prev,
-		address next,
+	function castVote (
+		address old_prev,
+		address new_prev,
 		address who,
 		uint256 amount
 	) public {
-		uint256 delegated = _delegated[_msgSender()];
-		require(_balances[_msgSender()] >= delegated + amount, "Not enough castle");
+		// Ensure arguments are valid
+		require(who != address(0), "Can't vote for nobody");
+		require(who != address(this), "Can't vote for the contract");
 
-		// Check that delegation is valid
-		Candidate memory prev_value = _votes[prev];
-		Candidate memory next_value = _votes[next];
-		Candidate memory who_value = _votes[who];
+		// Ensure sender has enough undelegated balance to cast this many votes
+		address sender = _msgSender();
+		uint256 delegated = _delegated[sender];
+		uint256 balance = _balances[sender];
+		uint256 new_delegated = delegated + amount;
+		require(balance >= new_delegated, "Not enough castle");
 
-		who_value.votes += amount;
+		// Update who value to include new votes
+		uint256 new_votes = _votes[who].votes + amount;
 
-		require(prev_value.votes > who_value.votes && who_value.votes > next_value.votes, "Violates total order");
+		// Ensure total order property is maintained
+		uint256 prev_value = _votes[new_prev].votes;
+		address prev_next = _votes[new_prev].next;
+		uint256 next_value = _votes[prev_next].votes;
+		require(prev_value > new_votes, "Total order violated on the left");
+		require(new_votes > next_value, "Total order violated on the right");
 
-		// Remove who from list if they're already in the list
-		if (who_value.prev != address(0)) {
-			_votes[who_value.prev].next = who_value.next;
+		// Ensure user is where they should be currently
+		if (old_prev == address(0)) {
+			require(_votes[who].votes == 0, "Missing old_prev");
+		} else {
+			require(_votes[old_prev].next == who, "Mismatch with old_prev");
+	
+			// Remove who from the list
+			_votes[old_prev].next = _votes[who].next;
 		}
 
-		if (who_value.next != address(0)) {
-			_votes[who_value.next].prev = who_value.prev;
+		// Update list
+		_votes[new_prev].next = who;
+		_votes[who].votes = new_votes;
+		_votes[who].next = prev_next;
+
+		// Update the sender's delegate count
+		_delegated[sender] = new_delegated;
+
+		emit VoteTotal(who, new_votes);
+	}
+
+	function countVotes () public {
+		// Clear current senate list
+		delete _senateMembers;
+
+		// Iterate the vote list to collect the senate
+		address ptr = address(this);
+
+		for (uint256 i = 0; i < _nextSenateSize && ptr != address(0); i++) {
+			ptr = _votes[ptr].next;
+			_senateMembers.push() = ptr;
 		}
-
-		// Insert who to their new place in the list
-		who_value.prev = prev;
-		who_value.next = next;
-		_votes[who] = who_value;
-
-		// Update balances and delegated values
-		_delegated[_msgSender()] = delegated + amount;
 	}
 }
